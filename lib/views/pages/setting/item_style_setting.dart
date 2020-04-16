@@ -19,7 +19,6 @@ import 'package:flutter_unit/views/items/techno_widget_list_item.dart';
 /// contact me by email 1981462002@qq.com
 /// 说明:
 
-
 class ItemStyleSettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,29 +26,28 @@ class ItemStyleSettingPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('item样式设置'),
       ),
-      body: BlocBuilder<GlobalBloc, GlobalState>(
-          builder: (_, state) {
-            print('EventChangeItemStyle${state.itemStyleIndex}');
-            return _buildFontCell(context, state.itemStyleIndex);
-          }),
+      body: BlocBuilder<GlobalBloc, GlobalState>(builder: (_, state) {
+        print('EventChangeItemStyle${state.itemStyleIndex}');
+        return _buildFontCell(context, state.itemStyleIndex);
+      }),
     );
   }
 
   final items = [
     TechnoWidgetListItem(data: getContainer()),
     CouponWidgetListItem(data: getContainer()),
-    CouponWidgetListItem(hasTopHole:false,data: getContainer()),
-    CouponWidgetListItem(hasTopHole:true,hasBottomHole:true,data: getContainer()),
+    CouponWidgetListItem(hasTopHole: false, data: getContainer()),
+    CouponWidgetListItem(
+        hasTopHole: true, hasBottomHole: true, data: getContainer()),
   ];
 
- static WidgetModel getContainer()=> WidgetModel(
+  static WidgetModel getContainer() => WidgetModel(
+      id: Random().nextInt(10000),
       name: 'Container',
-      nameCN: Random().nextDouble().toString(),
+      nameCN: "",
       lever: 5,
       family: WidgetFamily.statelessWidget,
       info: '用于容纳单个子组件的容器组件。集成了若干个单子组件的功能，如内外边距、形变、装饰、约束等...');
-
-
 
   Widget _buildFontCell(BuildContext context, int index) {
     return ListView.builder(
@@ -60,7 +58,8 @@ class ItemStyleSettingPage extends StatelessWidget {
                 a: 0.95,
                 duration: Duration(milliseconds: 200),
                 onPressed: () {
-                  BlocProvider.of<GlobalBloc>(context).add(EventChangeItemStyle(i));
+                  BlocProvider.of<GlobalBloc>(context)
+                      .add(EventChangeItemStyle(i));
                 },
                 child: Stack(
                   children: <Widget>[
